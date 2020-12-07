@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './randomChar.css';
-import gotService from '../../services/gotSerice';
+import gotService from '../../services/gotService';
 import Spinner from '../spinner';
 import ErrorMessage from '../errorMessage';
 
@@ -33,8 +33,7 @@ export default class RandomChar extends Component {
     }
 
     updateChar() {
-        // const id = Math.floor(Math.random()*140 + 25);
-        const id = 1333333;
+        const id = Math.floor(Math.random()*140 + 25);
         this.gotService.getCharacter(id)
             .then(this.onCharLoaded)
             .catch(this.onError);
