@@ -6,16 +6,20 @@ import ErrorMessage from '../errorMessage';
 
 export default class RandomChar extends Component {
 
-    constructor() {
-        super();
-        this.updateChar();
-    }
-
     gotService = new gotService();
     state = {
         char: {},
         loading: true,
         error: false
+    }
+
+    componentDidMount() {
+        this.updateChar();
+        this.timerID = setInterval(this.updateChar, 20000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timerID);
     }
 
     onCharLoaded = (char) => {
@@ -32,7 +36,7 @@ export default class RandomChar extends Component {
         })
     }
 
-    updateChar() {
+    updateChar = () => {
         const id = Math.floor(Math.random()*140 + 25);
         this.gotService.getCharacter(id)
             .then(this.onCharLoaded)
@@ -40,6 +44,8 @@ export default class RandomChar extends Component {
     }
 
     render() {
+        console.log('render');
+
         const {char, loading, error} = this.state;
 
         const errorMessage = error ? <ErrorMessage/> : null;
@@ -76,7 +82,7 @@ const View = ({char}) => {
                 </li>
                 <li className="list-group-item d-flex justify-content-between">
                     <span className="term">Culture </span>
-                    <span>{culture}y</span>
+                    <span>{culture}</span>
                 </li>
             </ul>
         </>

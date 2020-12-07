@@ -39,15 +39,32 @@ export default class GotService {
         return this.getResource(`/houses/${id}/`);
     }
 
-    _transformCharacter(char) {
-        return {
-            name: char.name,
-            gender: char.gender,
-            born: char.born,
-            died: char.died,
-            culture: char.culture
+    checkData(data) {
+        if (data) {
+            return data;
+        } else {
+            return `sorry, no data`;
         }
     }
+
+    _transformCharacter(char) {
+        return {
+            name: this.checkData(char.name),
+            gender: this.checkData(char.gender),
+            born: this.checkData(char.born),
+            died: this.checkData(char.died),
+            culture: this.checkData(char.culture)
+        };
+    }
+    // _transformCharacter(char) {
+    //     return {
+    //         name: char.name,
+    //         gender: char.gender,
+    //         born: char.born,
+    //         died: char.died,
+    //         culture: char.culture
+    //     }
+    // }
 
     _transformHouse(house) {
         return {
