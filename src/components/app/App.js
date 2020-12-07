@@ -13,7 +13,8 @@ import ErrorMessage from '../errorMessage';
 export default class App extends Component {
     state = {
         showRandomChar: true,
-        error: false
+        error: false,
+        selectedChar: 130
     }
 
     delRandomChar = () => {
@@ -22,6 +23,12 @@ export default class App extends Component {
                 showRandomChar: !state.showRandomChar
             }
         });
+    }
+
+    onCharSelected = (id) => {
+        this.setState({
+            selectedChar: id
+        })
     }
 
     render() {
@@ -41,18 +48,19 @@ export default class App extends Component {
                         <Col lg={{size: 5, offset: 0}}>
                             {char}
                             <Button 
-                            className='rand' 
-                            color="warning"
-                            onClick={this.delRandomChar}
-                            >Delete Random Character</Button>
+                                className='rand' 
+                                color="warning"
+                                onClick={this.delRandomChar}>Delete Random Character</Button>
                         </Col>
                     </Row>
                     <Row>
                         <Col md='6'>
-                            <ItemList />
+                            <ItemList
+                                onCharSelected={this.onCharSelected} />
                         </Col>
                         <Col md='6'>
-                            <CharDetails />
+                            <CharDetails
+                                charId={this.state.selectedChar} />
                         </Col>
                     </Row>
                 </Container>

@@ -41,14 +41,20 @@ export default class GotService {
 
     checkData(data) {
         if (data) {
-            return data;
+            return data
         } else {
-            return `sorry, no data`;
+            return 'sorry, no data'
         }
     }
 
-    _transformCharacter(char) {
+    // _extractId = (item) => {
+    //     const idRegExp = /\/([0-9]*)$/;
+    //     return item.url.match(idRegExp)[1];
+    // }
+
+    _transformCharacter = (char) => {
         return {
+            // id: this._extractId(char),
             name: this.checkData(char.name),
             gender: this.checkData(char.gender),
             born: this.checkData(char.born),
@@ -56,15 +62,6 @@ export default class GotService {
             culture: this.checkData(char.culture)
         };
     }
-    // _transformCharacter(char) {
-    //     return {
-    //         name: char.name,
-    //         gender: char.gender,
-    //         born: char.born,
-    //         died: char.died,
-    //         culture: char.culture
-    //     }
-    // }
 
     _transformHouse(house) {
         return {
