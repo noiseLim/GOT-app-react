@@ -47,14 +47,14 @@ export default class GotService {
         }
     }
 
-    // _extractId = (item) => {
-    //     const idRegExp = /\/([0-9]*)$/;
-    //     return item.url.match(idRegExp)[1];
-    // }
+    _extractId = (item) => {
+        const idRegExp = /\/([0-9]*)$/;
+        return item.url.match(idRegExp)[1];
+    }
 
     _transformCharacter = (char) => {
         return {
-            // id: this._extractId(char),
+            id: this._extractId(char),
             name: this.checkData(char.name),
             gender: this.checkData(char.gender),
             born: this.checkData(char.born),
