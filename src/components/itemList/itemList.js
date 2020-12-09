@@ -1,57 +1,58 @@
 import React, {Component} from 'react';
 import './itemList.css';
-import gotService from '../../services/gotService';
 import Spinner from '../spinner';
 import ErrorMessage from '../errorMessage';
 
 export default class ItemList extends Component {
 
-    gotService = new gotService();
     state = {
-        charList: null,
+        itemList: null,
         error: false
     }
 
     componentDidMount() {
-        this.gotService.getAllCharacters()
-            .then((charList) => {
+        const {getData} = this.props;
+
+        getData() 
+            .then((itemList) => {
                 this.setState({
-                    charList
+                    itemList
                 })
             })
-            .catch(() => this.onError());
+            .catch(() => this.onError());            
     }
 
     componentDidCatch() {
         this.setState({
-            charList: null,
+            itemList: null,
             error: true
         })
     }
 
     onError() {
         this.setState({
-            charList: null,
+            itemList: null,
             error: true
         })
     }
 
     renderItems(arr) {
         return arr.map((item) => {
-            const {id, name} = item;
+            const {id} = item;
+            const label = this.props.renderItem(item)
             return (
                 <li 
                     key={id}
                     className="list-group-item"
-                    onClick={ () => this.props.onCharSelected(id)}>
-                    {name}
+                    onClick={ () => this.props.onItemSelected(id)}>
+                    {label}
                 </li>
             )
         })
     }
 
     render() {
-        const {charList} = this.state;
+        const {itemList} = this.state;
 
         if (this.state.error) {
             return (
@@ -61,7 +62,7 @@ export default class ItemList extends Component {
             )
         }
 
-        if (!charList) {
+        if (!itemList) {
             return (
                 <div className="random-block rounded">
                     <Spinner/>
@@ -69,7 +70,7 @@ export default class ItemList extends Component {
             )
         }
 
-        const items = this.renderItems(charList);
+        const items = this.renderItems(itemList);
 
         return (
             <ul className="item-list list-group">

@@ -13,30 +13,34 @@ export default class GotService {
         return await res.json();
     }
 
-    getAllBooks() {
-        return this.getResource(`/books/`);
+    getAllBooks = async () => {
+        const res = await this.getResource(`/books/`);
+        return res.map(this._transformBook)
     }
     
-    getBook(id) {
-        return this.getResource(`/books/${id}/`);
+    getBook = async (id) => {
+        const book = await this.getResource(`/books/${id}/`);
+        return this._transformBook(book);
     }
     
-    async getAllCharacters() {
+    getAllCharacters = async () => {
         const res = await this.getResource(`/characters?page=5&pageSize=10`);
         return res.map(this._transformCharacter);
     }
     
-    async getCharacter (id) {
+    getCharacter = async (id) => {
         const character = await this.getResource(`/characters/${id}`);
         return this._transformCharacter(character);
     }
     
-    getAllHouses() {
-        return this.getResource(`/houses/`);
+    getAllHouses = async () => {
+        const res = await this.getResource(`/houses/`);
+        return res.map(this._transformHouse);
     }
     
-    getHouse(id) {
-        return this.getResource(`/houses/${id}/`);
+    getHouse = async (id) => {
+        const house = await this.getResource(`/houses/${id}/`);
+        return this._transformHouse(house);
     }
 
     checkData(data) {
@@ -65,21 +69,23 @@ export default class GotService {
 
     _transformHouse(house) {
         return {
-            name: house.name,
-            region: house.region,
-            words: house.words,
-            titles: house.titles,
-            overload: house.overload,
-            ancestraWeapons: house.ancestraWeapons
+            id: this._extractId(house),
+            name: this._extractId(house.name),
+            region: this._extractId(house.region),
+            words: this._extractId(house.words),
+            titles: this._extractId(house.titles),
+            overload: this._extractId(house.overload),
+            ancestraWeapons: this._extractId(house.ancestraWeapons)
         }
     }
 
     _transformBook(book) {
         return {
-            name: book.name,
-            numberOfPages: book.numberOfPages,
-            publiser: book.publiser,
-            released: book.released
+            id: this._extractId(book),
+            name: this._extractId(book.name),
+            numberOfPages: this._extractId(book.numberOfPages),
+            publiser: this._extractId(book.publiser),
+            released: this._extractId(book.released)
         }
     }
 }
