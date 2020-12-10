@@ -4,7 +4,7 @@ import Header from '../header';
 import RandomChar from '../randomChar';
 import { Button } from 'reactstrap';
 import ErrorMessage from '../errorMessage';
-import {CharacterPage, HousesPage, BooksPage} from '../pages';
+import {CharacterPage, HousesPage, BooksPage, BooksItem} from '../pages';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 import './app.css';
@@ -54,10 +54,18 @@ export default class App extends Component {
                                     onClick={this.delRandomChar}>Delete Random Character</Button>
                             </Col>
                         </Row>
-
+                        <Route path='/' exact component={() => <h1>Hello</h1>}/>
                         <Route path='/characters' component={CharacterPage}/>
-                        <Route path='/books' component={BooksPage}/>
                         <Route path='/houses' component={HousesPage}/>
+                        <Route path='/books' exact component={BooksPage}/>
+                        <Route path='/books/:id' render={
+                            ({match}) => {
+                                const {id} = match.params;
+                                
+                            return <BooksItem bookId={id}/>
+                            }
+                        }/>
+
                     </Container>
                 </div>
             </Router>
