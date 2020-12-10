@@ -67,25 +67,25 @@ export default class GotService {
         };
     }
 
-    _transformHouse(house) {
+    _transformHouse = (house) => {
         return {
             id: this._extractId(house),
-            name: this._extractId(house.name),
-            region: this._extractId(house.region),
-            words: this._extractId(house.words),
-            titles: this._extractId(house.titles),
-            overload: this._extractId(house.overload),
-            ancestraWeapons: this._extractId(house.ancestraWeapons)
+            name: this.checkData(house.name),
+            region: this.checkData(house.region),
+            words: this.checkData(house.words),
+            titles: this.checkData(house.titles),
+            overload: this.checkData(house.overload),
+            ancestraWeapons: this.checkData(house.ancestraWeapons)
         }
     }
 
-    _transformBook(book) {
+    _transformBook = (book) => {
         return {
             id: this._extractId(book),
-            name: this._extractId(book.name),
-            numberOfPages: this._extractId(book.numberOfPages),
-            publiser: this._extractId(book.publiser),
-            released: this._extractId(book.released)
+            name: this.checkData(book.name),
+            numberOfPages: this.checkData(book.numberOfPages),
+            publiser: this.checkData(book.publiser),
+            released: this.checkData(book.released)
         }
     }
 }
