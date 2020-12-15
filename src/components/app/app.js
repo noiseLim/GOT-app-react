@@ -7,6 +7,9 @@ import ErrorMessage from '../errorMessage';
 import {CharacterPage, HousesPage, BooksPage, BooksItem} from '../pages';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 
+
+import TestHooks from '../testHooks'
+
 import './app.css';
 
 
@@ -54,10 +57,11 @@ export default class App extends Component {
                                     onClick={this.delRandomChar}>Delete Random Character</Button>
                             </Col>
                         </Row>
-                        <Route path='/' exact component={() => <h1>Hello</h1>}/>
+                        {/* <Route path='/' exact component={() => <h1>Hello</h1>}/> */}
                         <Route path='/characters' component={CharacterPage}/>
                         <Route path='/houses' component={HousesPage}/>
                         <Route path='/books' exact component={BooksPage}/>
+                        <Route path='/hooks' component={TestHooks}/>
                         <Route path='/books/:id' render={
                             ({match}) => {
                                 const {id} = match.params;
